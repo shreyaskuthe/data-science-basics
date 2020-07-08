@@ -1,5 +1,5 @@
 # dats-science-
-Basic codes for beginner  data analyst
+Basic codes for beginner  data analyst\scientist\AI/ML beginer
 a=10
 b=20
 a=5;b=10
@@ -277,6 +277,130 @@ print(x@y)
 #print(np.dot(x,y))
 ##print(np.add(x,y))
 #np.add(),np.subtract(),np.multiply,np.divide(),np.remainder()
+
+#%% series
+import pandas as pd
+import numpy as np
+data= np.array([101,102,103,104])
+s= pd.Series(data)
+print(s)
+
+print(s[1])
+s[1]=105
+s[6]=105
+print(s)
+#%% key-pairs
+data={'a':0.,'b':1.,'c':2.}
+s=pd.Series(data)
+print(s)
+print(s['a'])
+print()
+print(s[-2:])
+#%%data frame
+data=[['shreyas',50],['sk',25],['kkk',85]]
+df=pd.DataFrame(data,columns=['name','age'])
+df
+##df.colomns=["name","age"] used if there is need to name columns anda rows after completion of algorithm
+##print(df)
+#%%
+data={'name':['amit','nikita','clara'],'age':[10,20,30]}
+df=pd.DataFrame(data)
+df
+
+df=pd.DataFrame(data,index=['rank1','rank2','rank3'])
+print(df)
+df['name']
+df[['name','age']]
+#adding a column at end
+df["address"]=["mumbai","pune","mumbai"]
+df
+
+#%% change order of column name
+df=df[['name','address','age']]
+df
+#%% creat numerical variable and computable variable
+df['newcol']=[5,10,12]
+df
+
+df["rervised_col"]=df['newcol']*2
+df
+#%% deleting a column
+del df["newcol"]
+df
+#%%droppimg variable axis=1 variables, axis=0 observations
+
+df=df.drop('rank1')
+df=df.drop('revised_col',axis=1)
+#%%%
+print(df)
+#%% accessing data using indexes and labels 
+##df.loc[inclusive:inclusive]
+print(df.loc['rank2'])
+print(df.loc['rank2':'rank3'])
+##df.iloc[inclusive:exclusive]
+print(df.iloc[0:1])
+print(df.loc["rank2":"rank3",["address","age"]])
+print(df.iloc[:,[1,2]])
+#%%
+##saving a file\ data  export
+df.to_csv(r'C:\Users\hp\Desktop\imarticus\python\sample.csv',
+          index=True,header=True)##.txt as well
+df.to_excel(r'C:\Users\hp\Desktop\imarticus\python\sample1.xlsx',
+          index=True,header=True)
+print("done")
+#%%
+##reading df from a file
+df2=pd.read_csv(r'C:\Users\hp\Desktop\imarticus\python\sample.csv',
+          index_col=0,header=0)
+df2
+df3=pd.read_excel(r'C:\Users\hp\Desktop\imarticus\python\sample1.xlsx',
+         header=0)
+df3
+#%%preparing data
+print(df.dtypes)
+#print(df.age.dtype)
+#print(df.shape)
+#df.info()
+#%%
+df.set_value('rank2',['name','age'],["ramesh",40])
+df["address"]=['pune','mumbai','banglore']
+print(df)
+#%% sorting data
+df.sort_values(['name',"address"],ascending=False)
+df.sort_values(['name',"address"])
+df.sort_values(['name',"address"],ascending=[False,True])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
