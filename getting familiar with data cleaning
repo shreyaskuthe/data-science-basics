@@ -1,0 +1,153 @@
+'''importing Basic libraries'''
+import pandas as pd
+#%%importig data set
+titanic_df=pd.read_excel(r'E:\DATA SCIENCE\imarticus\python\datasets\Titanic_Survival_Train.xls',index_col=0)
+#%%
+print(titanic_df)
+titanic_df.info()
+#%% to display max rows and colomns
+pd.set_option('display.max_columns',None)
+print(titanic_df)
+pd.set_option('display.max_rows',None)
+print(titanic_df)
+#%%
+titanic_df.tail(10)
+titanic_df.dtypes
+titanic_df.info()
+#%%structure of data type (discri[ptive statistics for data)
+titanic_df.describe()
+titanic_df.describe(include="all")
+titanic_df.Age.describe()
+titanic_df.Pclass.median()
+titanic_df["Cabin"].mode()[0]
+titanic_df.boxplot(column="Age")
+#%%subsetting
+my_df=titanic_df[["Sex","Pclass","Age"]]
+print(type(my_df))
+#%%
+my_df=titanic_df["Sex"]
+print(type(my_df))
+#%% filtering
+#%%
+import pandas as pd
+titanic_df=pd.read_excel(r'E:\DATA SCIENCE\imarticus\python\datasets\Titanic_Survival_Train.xls',index_col=0)
+#%%
+print(titanic_df)
+titanic_df.info()
+
+#%%
+pd.set_option('display.max_columns',None)
+print(titanic_df)
+pd.set_option('display.max_rows',None)
+print(titanic_df)
+#%%
+titanic_df.tail(10)
+titanic_df.dtypes
+titanic_df.info()
+#%%structure of data type (discri[ptive statistics for data)
+titanic_df.describe()
+titanic_df.describe(include="all")
+titanic_df.Age.describe()
+titanic_df.Pclass.median()
+titanic_df["Cabin"].mode()[0]
+titanic_df.boxplot(column="Age")
+#%%subsetting
+my_df=titanic_df[["Sex","Pclass","Age"]]
+print(type(my_df))
+#%%
+my_df=titanic_df["Sex"]
+print(type(my_df))
+#%% filtering
+df_agemorethan60=titanic_df[titanic_df['Age']>60]
+df_agemorethan60.shape[0]
+df_agemorethan60
+df_agemorethan60=titanic_df[titanic_df['Age']>60]
+df_agemorethan60.shape[0]
+df_agemorethan60
+#%%0 to et value
+df_boardq=titanic_df[titanic_df['Embarked']=='Q']
+df_boardq.shape[0]
+#%%multimode condiation 
+# passenger whose age is more than 60 and are male and they survived
+my_df=titanic_df[(titanic_df['Age']>60)&(titanic_df['Sex']=='male')&
+                 
+                 (titanic_df['Survived']==1)]
+my_df.shape[0]
+#%%tabulation to pass character .embarked. or ["embarked"] cAn be used bothg are same
+print(titanic_df.Embarked.value_counts())
+#%% suitable for categorical data
+pd.crosstab(titanic_df['Sex'],titanic_df['Survived'])
+pd.crosstab(titanic_df['Pclass'],titanic_df['Embarked'])
+#%%treating missing values {}
+##handeling missing data{eleminate,treat}
+##elemination is used if only <= 15% of data is missing
+##treating
+#1)datect2)handle
+print(titanic_df.isnull().sum()) ##o/p wil be boolean
+print(titanic_df['Age'].isnull().sum())
+print(titanic_df.isnull().any(axis=1).sum()) #total no of obs that contain missing valus
+#%%
+##print(titanic_df.dropna()) ## used to drop all missing values ## work on all values
+##print(titanic_df.fillna(0)) ##to fill issing values##work on individual values
+#%% elemination
+##if more than 50% of datra is missing
+half_count=len(titanic_df)/2
+titanic_df=titanic_df.dropna(thresh=half_count,axis=1)
+print(titanic_df.isnull().sum())
+"""
+half_count=0.75*len(titanic_df)
+print(half_count)
+"""
+#%%
+titanic_df=titanic_df.drop(['Ticket','Fare'],axis=1)
+titanic_df.head()
+#%%%
+#handling missing valuses in Embarked column
+titanic_df['Embarked'].fillna(titanic_df['Embarked'].mode()[0],inplace=True)
+print(titanic_df.isnull().sum())
+#%%mean {optional}
+titanic_df.Age.mean()
+#%%
+titanic_df['Age'].fillna(round(titanic_df)['Age'].mean()[0],inplace=True)
+titanic_df.Age.mean()
+#%%
+#removing duplicates
+import pandas as pd
+raw_data = {'first_name': ['Jason', 'Jason', 'Jason','Tina', 'Jake', 'Amy'],
+'last_name': ['Miller', 'Miller', 'Miller','Ali', 'Milner', 'Cooze'],
+'age': [42, 42, 1111111, 36, 24, 73],
+'preTestScore': [4, 4, 4, 31, 2, 3],
+'postTestScore': [25, 25, 25, 57, 62, 70]}
+df = pd.DataFrame(raw_data)
+print(df)
+#%%
+df.duplicated()
+df1=df.drop_duplicates(['first_name','last_name'],keep='first')
+print(df1)
+#%% join  operation 
+df1=pd.read_excel(r'E:\DATA SCIENCE\imarticus\python\datasets\std1.xlsx',index_col=0)
+df2=pd.read_excel(r'E:\DATA SCIENCE\imarticus\python\datasets\std2.xlsx',index_col=0)
+print(df1,df2)
+#%%
+df3=pd.merge(df1,df2,on='Stdid',how='inner') ##inner is used to print common from both values
+##left- all from left matching from right
+##right-all from right matching from left
+print(df3)
+
+#%% to change case of data
+df=titanic_df.applymap(lambda s:s.lower() if type(s)==str else s)
+df.head()
+#%%concanitaion of data frame
+##data=pd.concat([assigned names])
+data = {'Name':['Amit', 'Nikita', 'Clara'],'Age':[10,20,30]}
+df1= pd.DataFrame(data)
+print(df1)
+
+data = {'Name':['Rahul', 'Ankit', 'Dev'],'Age':[40,50,30]}
+df2= pd.DataFrame(data)
+print(df2)
+new_df=pd.concat([df1,df2],axis=0).reset_index().drop(['index'],axis=1)
+#%%
+
+
+
